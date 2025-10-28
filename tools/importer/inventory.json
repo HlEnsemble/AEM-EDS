@@ -1,0 +1,183 @@
+{
+  "fragments": [
+    {
+      "name": "nav",
+      "path": "/nav",
+      "totalBoxes": 1,
+      "instances": [
+        {
+          "url": "https://main--eds-react-coleman--ensemble-software.aem.live/",
+          "urlHash": "31edd260b66f388dce326fc470b4f76be7a76a04",
+          "uuid": "31edd260-00-4bb4558636299fc6d484c221077ae9659f41fcfb",
+          "xpath": "/html[1]/body[1]/header[1]/div[1]/div[1]/nav[1]/div[1]"
+        }
+      ],
+      "styles": {
+        "height": 34,
+        "background": "rgb(255, 255, 255) none repeat scroll 0% 0% / auto padding-box border-box"
+      }
+    },
+    {
+      "name": "footer",
+      "path": "/footer",
+      "totalBoxes": 1,
+      "instances": [
+        {
+          "url": "https://main--eds-react-coleman--ensemble-software.aem.live/",
+          "urlHash": "31edd260b66f388dce326fc470b4f76be7a76a04",
+          "uuid": "31edd260-10-a507e040135207256fc0c4fd07f12510b5a9e729",
+          "xpath": "/html[1]/body[1]/footer[1]"
+        }
+      ],
+      "styles": {
+        "background": "rgb(72, 71, 69) none repeat scroll 0% 0% / auto padding-box border-box"
+      }
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Columns",
+      "cluster": 1,
+      "source": "Columns",
+      "target": "Columns (columns1)",
+      "key": "columns1",
+      "instances": [
+        {
+          "url": "https://main--eds-react-coleman--ensemble-software.aem.live/",
+          "urlHash": "31edd260b66f388dce326fc470b4f76be7a76a04",
+          "uuid": "31edd260-01-22b75ca06599092958dd505c35167a52532a04de",
+          "xpath": "/html[1]/body[1]/header[1]/div[1]/div[1]/nav[1]/div[2]",
+          "section": "section-1"
+        }
+      ]
+    },
+    {
+      "name": "Columns",
+      "cluster": 2,
+      "source": "Columns",
+      "target": "Columns (columns2)",
+      "key": "columns2",
+      "instances": [
+        {
+          "url": "https://main--eds-react-coleman--ensemble-software.aem.live/",
+          "urlHash": "31edd260b66f388dce326fc470b4f76be7a76a04",
+          "uuid": "31edd260-03-0e656e90ffa9b526f8ce51ba23e08542406d6fcc",
+          "xpath": "/html[1]/body[1]/main[1]/div[1]",
+          "section": "section-2"
+        }
+      ]
+    },
+    {
+      "name": "Cards",
+      "cluster": 3,
+      "source": "Cards",
+      "target": "Cards (cards3)",
+      "key": "cards3",
+      "instances": [
+        {
+          "url": "https://main--eds-react-coleman--ensemble-software.aem.live/",
+          "urlHash": "31edd260b66f388dce326fc470b4f76be7a76a04",
+          "uuid": "31edd260-04-3ab9b21ef6cb3a018359b9f0daf1c63ecf73c7c1",
+          "xpath": "/html[1]/body[1]/main[1]/div[2]"
+        }
+      ]
+    },
+    {
+      "name": "Columns",
+      "cluster": 4,
+      "source": "Columns",
+      "target": "Columns (columns4)",
+      "key": "columns4",
+      "instances": [
+        {
+          "url": "https://main--eds-react-coleman--ensemble-software.aem.live/",
+          "urlHash": "31edd260b66f388dce326fc470b4f76be7a76a04",
+          "uuid": "31edd260-05-28b4d3c63d2ccd41cb54740341e225ebae6698c5",
+          "xpath": "/html[1]/body[1]/main[1]/div[3]"
+        }
+      ]
+    },
+    {
+      "name": "Cards",
+      "cluster": 5,
+      "source": "Cards",
+      "target": "Cards (cards5)",
+      "key": "cards5",
+      "instances": [
+        {
+          "url": "https://main--eds-react-coleman--ensemble-software.aem.live/",
+          "urlHash": "31edd260b66f388dce326fc470b4f76be7a76a04",
+          "uuid": "31edd260-07-0463fcac4b4b4a0c11ddd0a039603f0b20d7fd88",
+          "xpath": "/html[1]/body[1]/main[1]/div[4]/div[1]/div[1]/section[1]"
+        }
+      ]
+    },
+    {
+      "name": "Cards",
+      "cluster": 6,
+      "source": "Cards",
+      "target": "Cards (cards6)",
+      "key": "cards6",
+      "instances": [
+        {
+          "url": "https://main--eds-react-coleman--ensemble-software.aem.live/",
+          "urlHash": "31edd260b66f388dce326fc470b4f76be7a76a04",
+          "uuid": "31edd260-08-d70c6e6ca8d70ee1f6c77e1030748587e67c4882",
+          "xpath": "/html[1]/body[1]/main[1]/div[5]"
+        }
+      ]
+    }
+  ],
+  "outliers": [
+    {
+      "url": "https://main--eds-react-coleman--ensemble-software.aem.live/",
+      "urlHash": "31edd260b66f388dce326fc470b4f76be7a76a04",
+      "uuid": "31edd260-00-4bb4558636299fc6d484c221077ae9659f41fcfb",
+      "xpath": "/html[1]/body[1]/header[1]/div[1]/div[1]/nav[1]/div[1]",
+      "section": "section-1"
+    },
+    {
+      "url": "https://main--eds-react-coleman--ensemble-software.aem.live/",
+      "urlHash": "31edd260b66f388dce326fc470b4f76be7a76a04",
+      "uuid": "31edd260-02-77a5ebbc3ac8bc7bdb21d92817ec0d0a1c329f19",
+      "xpath": "/html[1]/body[1]/header[1]/div[1]/div[1]/nav[1]/div[3]",
+      "section": "section-1"
+    },
+    {
+      "url": "https://main--eds-react-coleman--ensemble-software.aem.live/",
+      "urlHash": "31edd260b66f388dce326fc470b4f76be7a76a04",
+      "uuid": "31edd260-06-38f0a1d25e80dc7851f164587eeaea35cb711fc3",
+      "xpath": "/html[1]/body[1]/main[1]/div[4]/div[1]/div[1]/div[1]"
+    },
+    {
+      "url": "https://main--eds-react-coleman--ensemble-software.aem.live/",
+      "urlHash": "31edd260b66f388dce326fc470b4f76be7a76a04",
+      "uuid": "31edd260-09-ae2bdf034519b8b4db063a10ec4a1b53e6e33779",
+      "xpath": "/html[1]/body[1]/main[1]/div[6]"
+    },
+    {
+      "url": "https://main--eds-react-coleman--ensemble-software.aem.live/",
+      "urlHash": "31edd260b66f388dce326fc470b4f76be7a76a04",
+      "uuid": "31edd260-10-a507e040135207256fc0c4fd07f12510b5a9e729",
+      "xpath": "/html[1]/body[1]/footer[1]",
+      "section": "section-3"
+    }
+  ],
+  "sections": [
+    {
+      "name": "section-1",
+      "background": "rgb(255, 255, 255) none repeat scroll 0% 0% / auto padding-box border-box",
+      "count": 3
+    },
+    {
+      "name": "section-2",
+      "background": "rgb(53, 72, 86) none repeat scroll 0% 0% / auto padding-box border-box",
+      "count": 1
+    },
+    {
+      "name": "section-3",
+      "background": "rgb(72, 71, 69) none repeat scroll 0% 0% / auto padding-box border-box",
+      "count": 1
+    }
+  ]
+}
