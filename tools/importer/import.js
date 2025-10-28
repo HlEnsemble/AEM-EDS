@@ -11,12 +11,12 @@
  */
 /* global WebImporter */
 /* eslint-disable no-console */
-import columns2Parser from './parsers/columns2.js';
-import cards3Parser from './parsers/cards3.js';
 import columns1Parser from './parsers/columns1.js';
+import cards3Parser from './parsers/cards3.js';
 import columns4Parser from './parsers/columns4.js';
-import cards6Parser from './parsers/cards6.js';
 import cards5Parser from './parsers/cards5.js';
+import cards6Parser from './parsers/cards6.js';
+import columns2Parser from './parsers/columns2.js';
 import headerParser from './parsers/header.js';
 import metadataParser from './parsers/metadata.js';
 import cleanupTransformer from './transformers/cleanup.js';
@@ -33,12 +33,12 @@ import {
 
 const parsers = {
   metadata: metadataParser,
-  columns2: columns2Parser,
-  cards3: cards3Parser,
   columns1: columns1Parser,
+  cards3: cards3Parser,
   columns4: columns4Parser,
-  cards6: cards6Parser,
   cards5: cards5Parser,
+  cards6: cards6Parser,
+  columns2: columns2Parser,
   ...customParsers,
 };
 

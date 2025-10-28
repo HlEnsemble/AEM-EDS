@@ -1,53 +1,41 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Defensive: fallback if .default-content-wrapper is not present
-  let contentWrapper = element.querySelector(':scope > .default-content-wrapper');
-  if (!contentWrapper) contentWrapper = element;
+  // Helper: get direct children divs
+  const wrapper = element.querySelector('.default-content-wrapper');
+  if (!wrapper) return;
 
-  // 1. Logo (first <p> with <a><picture><img>)
-  const logoPara = contentWrapper.querySelector('p a picture img')?.closest('p');
-
-  // 2. Search bar (input + icon)
-  const searchPara = contentWrapper.querySelector('p input')?.closest('p');
-
-  // 3. Right-side nav (the <ul> list)
-  const navList = contentWrapper.querySelector('ul');
-  let navClone = navList ? navList.cloneNode(true) : null;
-  // Fix casing for 'Support' and 'Bag' (these are text nodes after icon spans)
-  if (navClone) {
-    const lis = navClone.querySelectorAll('li');
-    lis.forEach(li => {
-      // Find the text node after the icon span
-      const iconSpan = li.querySelector('span.icon');
-      if (iconSpan) {
-        let next = iconSpan.nextSibling;
-        while (next && next.nodeType !== 3) next = next.nextSibling;
-        if (next && next.nodeType === 3) {
-          // Trim and check text
-          let txt = next.textContent.trim();
-          if (txt.toLowerCase() === 'support') next.textContent = 'Support';
-          if (txt.toLowerCase() === 'bag') next.textContent = 'Bag';
-        }
-      }
-    });
+  // --- COLUMN 1: Logo ---
+  // Find the first <a> with an <img> (logo)
+  let logoEl = null;
+  const logoLink = wrapper.querySelector('a[href]');
+  if (logoLink && logoLink.querySelector('img')) {
+    logoEl = logoLink;
   }
 
-  // Build columns: logo, search, nav
-  const columns = [];
-  if (logoPara) columns.push(logoPara);
-  if (searchPara) columns.push(searchPara);
-  if (navClone) columns.push(navClone);
+  // --- COLUMN 2: Search ---
+  // Find the <input> and its containing <p>
+  let searchEl = null;
+  const searchP = Array.from(wrapper.querySelectorAll('p')).find(p => p.querySelector('input[type="text"]'));
+  if (searchP) {
+    searchEl = searchP;
+  }
 
-  // Header row
+  // --- COLUMN 3: User/Support/Bag ---
+  // The <ul> contains all the user/account/support/bag items
+  let navToolsEl = null;
+  const ul = wrapper.querySelector('ul');
+  if (ul) {
+    navToolsEl = ul;
+  }
+
+  // Build the columns row
+  const columnsRow = [logoEl, searchEl, navToolsEl].filter(Boolean);
+
+  // Table header
   const headerRow = ['Columns (columns1)'];
-  // Content row: each main section as a column
-  const contentRow = columns;
+  const tableCells = [headerRow, columnsRow];
 
-  // Build table
-  const table = WebImporter.DOMUtils.createTable([
-    headerRow,
-    contentRow,
-  ], document);
-
+  // Create and replace
+  const table = WebImporter.DOMUtils.createTable(tableCells, document);
   element.replaceWith(table);
 }
