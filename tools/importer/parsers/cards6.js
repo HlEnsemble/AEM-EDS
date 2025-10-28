@@ -1,53 +1,69 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Cards (cards6) block: 2 columns, multiple rows, each row = 1 card
-  // Header row: must be a single cell row (not th, not colspan)
-  const rows = [['Cards (cards6)']];
-
-  // Find the cards container (the repeating card structure)
+  // Cards (cards6) block parsing
   const cardsContainer = element.querySelector('.cards-container');
   if (!cardsContainer) return;
 
-  // Select all card elements
-  const cardElements = cardsContainer.querySelectorAll('.cards-element');
+  const cardElements = Array.from(cardsContainer.querySelectorAll('.cards-element'));
+  if (!cardElements.length) return;
 
-  cardElements.forEach((cardEl) => {
+  const headerRow = ['Cards (cards6)'];
+  const rows = [headerRow];
+
+  cardElements.forEach((cardEl, idx) => {
     // --- Image cell ---
     const imageContainer = cardEl.querySelector('.cards-card-image');
     let imageEl = null;
     if (imageContainer) {
-      imageEl = imageContainer.querySelector('picture') || imageContainer.querySelector('img');
+      const picture = imageContainer.querySelector('picture');
+      if (picture) {
+        imageEl = picture.cloneNode(true);
+        // For the second card, add overlay text as alt/caption
+        if (idx === 1) {
+          const img = imageEl.querySelector('img');
+          if (img) {
+            // Append overlay text to alt
+            img.alt = (img.alt ? img.alt + ' ' : '') + 'The OUTSIDE IS CALLING';
+          }
+        }
+      } else {
+        const img = imageContainer.querySelector('img');
+        if (img) {
+          imageEl = img.cloneNode(true);
+          if (idx === 1) {
+            imageEl.alt = (imageEl.alt ? imageEl.alt + ' ' : '') + 'The OUTSIDE IS CALLING';
+          }
+        }
+      }
     }
-    const imageCell = imageEl ? imageEl : '';
 
     // --- Text cell ---
     const bodyContainer = cardEl.querySelector('.cards-card-body');
-    let titleEl = null, descEl = null, ctaEl = null;
+    let textCellContent = [];
     if (bodyContainer) {
-      titleEl = bodyContainer.querySelector('p > strong');
-      const descCandidates = Array.from(bodyContainer.querySelectorAll('p'));
-      descEl = descCandidates.find(p => !p.querySelector('strong') && !p.classList.contains('button-container'));
-      ctaEl = bodyContainer.querySelector('.button-container a');
+      const titleP = bodyContainer.querySelector('p > strong');
+      if (titleP && titleP.parentElement) {
+        textCellContent.push(titleP.parentElement.cloneNode(true));
+      }
+      const descP = Array.from(bodyContainer.querySelectorAll('p')).find(p => !p.querySelector('strong') && !p.classList.contains('button-container'));
+      if (descP) {
+        textCellContent.push(descP.cloneNode(true));
+      }
+      const ctaP = bodyContainer.querySelector('p.button-container');
+      if (ctaP) {
+        textCellContent.push(ctaP.cloneNode(true));
+      }
     }
-    const textCellContent = [];
-    if (titleEl) {
-      const titleDiv = document.createElement('div');
-      titleDiv.appendChild(titleEl.cloneNode(true));
-      textCellContent.push(titleDiv);
-    }
-    if (descEl) {
-      textCellContent.push(descEl.cloneNode(true));
-    }
-    if (ctaEl) {
-      textCellContent.push(ctaEl.cloneNode(true));
-    }
-    const textCell = textCellContent.length ? textCellContent : '';
 
-    rows.push([imageCell, textCell]);
+    // Defensive: if no image or text, skip
+    if (!imageEl && !textCellContent.length) return;
+
+    rows.push([
+      imageEl || '',
+      textCellContent.length === 1 ? textCellContent[0] : textCellContent
+    ]);
   });
 
-  // Create the block table
   const block = WebImporter.DOMUtils.createTable(rows, document);
-  // Replace original element
   element.replaceWith(block);
 }

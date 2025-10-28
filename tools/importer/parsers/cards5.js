@@ -1,80 +1,70 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Cards (cards5) block parsing
-  // 1. Header row
+  // Cards (cards5) block header
   const headerRow = ['Cards (cards5)'];
-  const rows = [headerRow];
 
-  // Always include all card items present in the source HTML
-  const cardItems = element.querySelectorAll('.slider-container > .slider-item');
+  // Find the container holding all card items
+  const sliderContainer = element.querySelector('.slider-container');
+  if (!sliderContainer) return;
 
-  cardItems.forEach((card) => {
-    // Each card is a link (<a>) containing image, title, price, and optionally a badge
+  // Get all card elements
+  const cardEls = Array.from(sliderContainer.querySelectorAll('.slider-item'));
+
+  // Build rows for each card
+  const rows = cardEls.map(card => {
+    // Card link (for possible CTA)
     const link = card.querySelector('a');
+    const href = link ? link.getAttribute('href') : null;
 
-    // --- IMAGE CELL ---
-    // Find the image (always inside .slider-image .image-wrapper img)
-    let imageEl = null;
-    const img = card.querySelector('.slider-image .image-wrapper img');
-    if (img) {
-      imageEl = img;
-    }
+    // Image (always present)
+    const img = card.querySelector('img');
+    const imageCell = img ? img : '';
 
-    // If there's a badge (e.g. 'Best Seller'), add it above the image
-    const badge = card.querySelector('.best-seller span');
-    let imageCellContent = [];
+    // Text content (title, price, badge)
+    const textFragments = [];
+
+    // Badge (optional)
+    const badge = card.querySelector('.best-seller');
     if (badge) {
-      // Create a badge element
-      const badgeDiv = document.createElement('div');
-      badgeDiv.textContent = badge.textContent;
-      badgeDiv.style.fontSize = '0.75em';
-      badgeDiv.style.fontWeight = 'bold';
-      badgeDiv.style.background = '#34282b';
-      badgeDiv.style.color = '#fff';
-      badgeDiv.style.display = 'inline-block';
-      badgeDiv.style.padding = '2px 6px';
-      badgeDiv.style.marginBottom = '4px';
-      badgeDiv.style.borderRadius = '2px';
-      imageCellContent.push(badgeDiv);
+      textFragments.push(badge);
     }
-    if (imageEl) {
-      imageCellContent.push(imageEl);
-    }
-    // If no badge, just the image
-    if (imageCellContent.length === 1) imageCellContent = imageEl;
 
-    // --- TEXT CELL ---
-    // Use all text inside .slider-text, not just <strong>
-    const sliderText = card.querySelector('.slider-text');
-    const priceEl = card.querySelector('.price');
-    const textCellContent = [];
-    if (sliderText) {
-      sliderText.childNodes.forEach((node) => {
-        textCellContent.push(node.cloneNode(true));
-      });
+    // Title (strong inside .slider-text)
+    const title = card.querySelector('.slider-text strong');
+    if (title) {
+      const titleDiv = document.createElement('div');
+      titleDiv.appendChild(title.cloneNode(true));
+      textFragments.push(titleDiv);
     }
-    if (priceEl) {
+
+    // Price (always present)
+    const price = card.querySelector('.price');
+    if (price) {
       const priceDiv = document.createElement('div');
-      priceDiv.textContent = priceEl.textContent;
-      priceDiv.style.marginTop = '4px';
-      textCellContent.push(priceDiv);
-    }
-    if (link && link.href) {
-      const cta = document.createElement('a');
-      cta.href = link.href;
-      cta.textContent = 'View Product';
-      cta.style.display = 'inline-block';
-      cta.style.marginTop = '8px';
-      textCellContent.push(cta);
+      priceDiv.appendChild(price.cloneNode(true));
+      textFragments.push(priceDiv);
     }
 
-    rows.push([
-      imageCellContent,
-      textCellContent
-    ]);
+    // If there's a link, wrap all text fragments in an anchor
+    let textCell;
+    if (href) {
+      const a = document.createElement('a');
+      a.href = href;
+      textFragments.forEach(frag => a.appendChild(frag));
+      textCell = a;
+    } else {
+      textCell = textFragments;
+    }
+
+    return [imageCell, textCell];
   });
 
-  // Create the block table and replace the original element
-  const block = WebImporter.DOMUtils.createTable(rows, document);
-  element.replaceWith(block);
+  // Compose the table
+  const table = WebImporter.DOMUtils.createTable([
+    headerRow,
+    ...rows
+  ], document);
+
+  // Replace the original element with the block table
+  element.replaceWith(table);
 }
