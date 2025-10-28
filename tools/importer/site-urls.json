@@ -1,0 +1,29 @@
+{
+  "originUrl": "https://main--eds-react-coleman--ensemble-software.aem.live",
+  "aborted": false,
+  "lastCrawled": "https://main--eds-react-coleman--ensemble-software.aem.live/",
+  "urls": [
+    {
+      "url": "https://main--eds-react-coleman--ensemble-software.aem.live/",
+      "source": "SITEMAPS",
+      "targetPath": "/",
+      "id": "31edd260b66f388dce326fc470b4f76be7a76a04"
+    }
+  ],
+  "crawlOptions": {
+    "timeout": 10000,
+    "inclusionPatterns": [],
+    "exclusionPatterns": [],
+    "limit": 100,
+    "sameDomain": true,
+    "keepHash": false,
+    "strategy": "sitemaps",
+    "logger": {},
+    "strategiesAttempted": [
+      "SITEMAPS"
+    ]
+  },
+  "extractionErrors": [],
+  "errorCountMessage": "none",
+  "error": null
+}
